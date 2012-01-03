@@ -8,19 +8,15 @@
 (defn clean-text [text]
   (clojure.string/replace text #"[^\u0000-\u007F]" ""))
 
-(defpartial cleaner-form [& paste]
-  (text-area "paste" (first paste))
+(defpartial cleaner-form [{:keys [paste]}]
+  (text-area "paste" (clean-text paste))
   (submit-button "Clean it up!"))
 
-(defpage "/" []
+(defpage "/" {:as result}
   (common/layout 
     [:p "Remove all non-ASCII characters from text."]
     (form-to [:post "/"]
-             (cleaner-form))))
+             (cleaner-form result))))
 
-(defpage [:post "/"] {paste :paste}
-  (common/layout 
-    [:p "Remove all non-ASCII characters from text."]
-    (form-to [:post "/"]
-             (cleaner-form (clean-text paste)))))
-
+(defpage [:post "/"] {:as result}
+    (render "/" result))
