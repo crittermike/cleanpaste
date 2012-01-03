@@ -34,3 +34,10 @@ body {
   float: right;
   margin: 20px 0 10px;
 }
+
+#wrapper p {
+  text-align: center;
+  background: #eee;
+  padding: 10px;
+  font-size: 22px;
+}

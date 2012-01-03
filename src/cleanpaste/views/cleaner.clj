@@ -14,11 +14,13 @@
 
 (defpage "/" []
   (common/layout 
+    [:p "Remove all non-ASCII characters from text."]
     (form-to [:post "/"]
              (cleaner-form))))
 
 (defpage [:post "/"] {paste :paste}
   (common/layout 
+    [:p "Remove all non-ASCII characters from text."]
     (form-to [:post "/"]
              (cleaner-form (clean-text paste)))))
 
