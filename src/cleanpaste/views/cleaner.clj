@@ -6,7 +6,9 @@
         [hiccup.core :only [html]]))
 
 (defn clean-text [text]
-  (clojure.string/replace text #"[^\u0000-\u007F]" ""))
+  (if (string? text)
+      (clojure.string/replace text #"[^\u0000-\u007F]" "")
+      text))
 
 (defpartial cleaner-form [{:keys [paste]}]
   (text-area "paste" (clean-text paste))
@@ -19,4 +21,4 @@
              (cleaner-form result))))
 
 (defpage [:post "/"] {:as result}
-    (render "/" result))
+  (render "/" result))
